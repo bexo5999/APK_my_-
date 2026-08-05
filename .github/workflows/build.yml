@@ -6,6 +6,7 @@ on:
       - main
   workflow_dispatch:
 
+
 jobs:
   build:
 
@@ -13,40 +14,63 @@ jobs:
 
     steps:
 
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v4
+
 
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: "3.11"
 
-    - name: Install dependencies
+
+    - name: Install Linux dependencies
       run: |
         sudo apt update
+
         sudo apt install -y \
           openjdk-11-jdk \
           git \
           zip \
           unzip \
-          ffmpeg
+          ffmpeg \
+          autoconf \
+          libtool \
+          pkg-config
+
 
         pip install --upgrade pip setuptools wheel
-        pip install buildozer cython==0.29.36
+
+        pip install \
+          buildozer \
+          cython==0.29.36
+
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Accept licenses
+
+    - name: Install Android SDK packages
       run: |
+
         yes | sdkmanager --licenses || true
+
+        sdkmanager \
+          "platform-tools" \
+          "platforms;android-28" \
+          "build-tools;28.0.3"
+
 
     - name: Build APK
       run: |
+
+        buildozer android clean
+
         buildozer android debug
+
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: VideoToAudio
+        name: VideoToAudio-APK
         path: bin/*.apk
