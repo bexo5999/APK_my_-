@@ -49,7 +49,7 @@ jobs:
       uses: android-actions/setup-android@v3
 
 
-    - name: Setup Android SDK for Buildozer
+    - name: Prepare Android SDK for Buildozer
       run: |
         mkdir -p $HOME/.buildozer/android/platform
 
@@ -57,20 +57,28 @@ jobs:
 
         mkdir -p $ANDROIDSDK
 
-        yes | sdkmanager --licenses || true
+        cp -r $ANDROID_HOME/* $ANDROIDSDK/ || true
 
-        sdkmanager \
-          --sdk_root=$ANDROIDSDK \
+        mkdir -p $ANDROIDSDK/tools/bin
+
+        ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
+          $ANDROIDSDK/tools/bin/sdkmanager
+
+        yes | $ANDROIDSDK/tools/bin/sdkmanager --licenses || true
+
+        $ANDROIDSDK/tools/bin/sdkmanager \
           "platform-tools" \
           "platforms;android-28" \
           "build-tools;28.0.3"
 
         echo "ANDROIDSDK=$ANDROIDSDK" >> $GITHUB_ENV
+        echo "ANDROID_HOME=$ANDROIDSDK" >> $GITHUB_ENV
 
 
-    - name: Check Buildozer
+    - name: Check Android Tools
       run: |
-        buildozer --version
+        ls -la $HOME/.buildozer/android/platform/android-sdk/build-tools
+        $HOME/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --version
 
 
     - name: Build APK
