@@ -9,7 +9,7 @@ source.include_exts = py,png,jpg,kv,atlas,ttf
 
 version = 1.0.0
 
-requirements = python3,kivy,ffpyplayer
+requirements = python3,kivy
 
 orientation = portrait
 fullscreen = 0
