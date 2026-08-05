@@ -24,7 +24,7 @@ jobs:
         python-version: "3.11"
 
 
-    - name: Install Linux dependencies
+    - name: Install dependencies
       run: |
         sudo apt update
 
@@ -37,7 +37,6 @@ jobs:
           autoconf \
           libtool \
           pkg-config
-
 
         pip install --upgrade pip setuptools wheel
 
@@ -52,7 +51,6 @@ jobs:
 
     - name: Install Android SDK packages
       run: |
-
         yes | sdkmanager --licenses || true
 
         sdkmanager \
@@ -61,11 +59,13 @@ jobs:
           "build-tools;28.0.3"
 
 
+    - name: Check Buildozer
+      run: |
+        buildozer --version
+
+
     - name: Build APK
       run: |
-
-        buildozer android clean
-
         buildozer android debug
 
 
