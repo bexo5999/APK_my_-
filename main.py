@@ -10,12 +10,28 @@ from kivy.uix.popup import Popup
 from kivy.uix.progressbar import ProgressBar
 from kivy.clock import Clock
 from kivy.core.window import Window
+from kivy.utils import platform
+
+# ============================================
+# صلاحيات Android
+# ============================================
+if platform == "android":
+    from android.permissions import request_permissions, Permission
 
 # تعيين خلفية التطبيق
 Window.clearcolor = (0.1, 0.1, 0.15, 1)
 
 class VideoToAudioApp(App):
     def build(self):
+        # ============================================
+        # طلب صلاحيات Android
+        # ============================================
+        if platform == "android":
+            request_permissions([
+                Permission.READ_EXTERNAL_STORAGE,
+                Permission.WRITE_EXTERNAL_STORAGE
+            ])
+        
         self.title = '🎬 فيديو ➜ صوت'
         
         # التصميم الرئيسي
