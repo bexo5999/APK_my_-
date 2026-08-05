@@ -20,7 +20,6 @@ android.ndk = 27b
 android.build_tools = 35.0.0
 
 android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,FOREGROUND_SERVICE
-
 android.accept_sdk_license = True
 
 [buildozer]
