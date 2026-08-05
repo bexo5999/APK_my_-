@@ -14,10 +14,10 @@ requirements = python3,kivy
 orientation = portrait
 fullscreen = 0
 
-android.api = 28
+android.api = 35
 android.minapi = 21
-android.ndk = 21e
-android.build_tools = 28.0.3
+android.ndk = 25c
+android.build_tools = 35.0.0
 
 android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,FOREGROUND_SERVICE
 
