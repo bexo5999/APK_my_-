@@ -8,11 +8,14 @@ version = 1.0.0
 requirements = python3==3.11, kivy, ffpyplayer
 orientation = portrait
 fullscreen = 1
-android.api = 29
+
+# استخدام API 28 لتجنب مشاكل build-tools
+android.api = 28
 android.minapi = 21
-android.ndk = 23b
-android.sdk = 29
-android.build_tools = 29.0.3
+android.ndk = 21e
+android.sdk = 28
+android.build_tools = 28.0.3
+
 android.permissions = INTERNET, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, FOREGROUND_SERVICE
 android.allow_background_service = True
 android.entrypoint = main.py
